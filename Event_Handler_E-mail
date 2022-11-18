@@ -1,0 +1,12 @@
+Para que llegue un correo cuando hay un error en el paquete de SSIS se debe ir a la opcion --> Event Handler --> habilitar --> Send Mail Task
+
+La configuracion debe generarse por medio de expresiones asignadas de la siguiente forma
+
+Subject:
+"SSIS Error: " +  (DT_STR, 50,1252)  @[System::PackageName]
+
+MessageSource:
+"Package:                              "+ (DT_WSTR, 50)  @[System::PackageName] +".
+Time:                                      " + (DT_WSTR, 50) @[System::StartTime]  +".
+Task:                                       "+  (DT_WSTR, 50) @[System::SourceName]  +".
+Error Description:                " + (DT_STR, 2000,1252)  @[System::ErrorDescription]
